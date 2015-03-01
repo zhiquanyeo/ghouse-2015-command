@@ -1,10 +1,10 @@
 package org.usfirst.frc.team354.robot.subsystems;
 
 import org.usfirst.frc.team354.robot.RobotMap;
-import org.usfirst.frc.team354.robot.commands.OperatorHDrive;
 import org.usfirst.frc.team354.robot.commands.OperatorMecDrive;
 
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -22,9 +22,6 @@ public class Chassis extends Subsystem {
 	private SpeedController backLeftMotor;
 	private SpeedController backRightMotor;
 	
-	//H Drive?
-	private SpeedController hDriveMotor;
-
 	private RobotDrive driveSystem;
 	
 	public Chassis() {
@@ -32,28 +29,16 @@ public class Chassis extends Subsystem {
 		frontRightMotor = new Victor(RobotMap.frontRightMotor);
 		backLeftMotor = new Victor(RobotMap.backLeftMotor);
 		backRightMotor = new Victor(RobotMap.backRightMotor);
-		hDriveMotor = new Victor(RobotMap.hDriveMotor);
 		
-		driveSystem = new RobotDrive(frontLeftMotor, frontRightMotor);
+		driveSystem = new RobotDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
 		
-		//When we switch the mecanum, use this
-		//driveSystem = new RobotDrive(frontLeftMotor, backLeftMotor, frontRightMotor, backRightMotor);
+		driveSystem.setInvertedMotor(MotorType.kFrontLeft, true);
+		driveSystem.setInvertedMotor(MotorType.kRearLeft, true);
 	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	
-    	setDefaultCommand(new OperatorHDrive());
-    	
-    	//TODO When we switch to Mec drive, use this
-    	//setDefaultCommand(new OperatorMecDrive());
-    }
-    
-    //This is the default drive system, with H drive
-    public void hDrive(double speed, double turn, double strafe) {
-    	driveSystem.arcadeDrive(speed, turn);
-    	hDriveMotor.set(strafe);
+    	//The default command is to do meccanum drive. and it will be awesome
+    	setDefaultCommand(new OperatorMecDrive());
     }
     
     public void meccanumDrive(double x, double y, double rotation) {

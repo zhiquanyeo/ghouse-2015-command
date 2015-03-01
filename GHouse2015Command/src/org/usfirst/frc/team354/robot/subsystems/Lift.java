@@ -1,5 +1,7 @@
 package org.usfirst.frc.team354.robot.subsystems;
 
+import org.usfirst.frc.team354.robot.Constants;
+import org.usfirst.frc.team354.robot.Robot;
 import org.usfirst.frc.team354.robot.RobotMap;
 import org.usfirst.frc.team354.robot.commands.StopLift;
 
@@ -10,6 +12,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -51,6 +54,9 @@ public class Lift extends Subsystem {
     	else {
     		liftMotor.set(0);
     	}
+    	
+    	SmartDashboard.putNumber(Constants.DASH_LIFT_ENCODER_VALUE, Robot.lift.encoderValue());
+    	SmartDashboard.putBoolean(Constants.DASH_LIFT_ENCODER_OK, Robot.lift.encoderHasBeenReset());
     }
     
     public void lower() {
@@ -62,6 +68,9 @@ public class Lift extends Subsystem {
     		encoder.reset();
     		encoderReset = true;
     	}
+    	
+    	SmartDashboard.putNumber(Constants.DASH_LIFT_ENCODER_VALUE, Robot.lift.encoderValue());
+    	SmartDashboard.putBoolean(Constants.DASH_LIFT_ENCODER_OK, Robot.lift.encoderHasBeenReset());
     }
     
     public void stop() {
@@ -84,12 +93,33 @@ public class Lift extends Subsystem {
     	return encoderReset;
     }
     
+    public void startRollers(boolean reverse) {
+    	if (reverse) {
+    		rollerMotor.set(-ROLLER_SPEED);
+    	}
+    	else {
+    		rollerMotor.set(ROLLER_SPEED);
+    	}
+    }
+    
     public void startRollers() {
-    	
+    	startRollers(false);
     }
     
     public void stopRollers() {
-    	
+    	rollerMotor.set(0);
+    }
+    
+    public boolean isAtSafeHeight() {
+    	return (encoderReset && encoder.get() > Constants.LIFT_SAFE_HEIGHT);
+    }
+    
+    // Initialization routines to run
+    public void initialize() {
+    	if (isAtBottom()) {
+    		encoder.reset();
+    		encoderReset = true;
+    	}
     }
 }
 

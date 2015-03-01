@@ -1,6 +1,5 @@
 package org.usfirst.frc.team354.robot.commands;
 
-import org.usfirst.frc.team354.robot.Constants;
 import org.usfirst.frc.team354.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -8,16 +7,18 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class MoveShelfToPoint extends Command {
+public class StartLiftRollers extends Command {
+	boolean reverse = false;
 	
-	private int targetPoint;
-	
-    public MoveShelfToPoint(int target) {
+    public StartLiftRollers() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	targetPoint = target;
-    	
-    	requires(Robot.shelf);
+    	this(false);
+    }
+    
+    public StartLiftRollers(boolean reverse) {
+    	this.reverse = reverse;
+    	requires(Robot.lift);
     }
 
     // Called just before this Command runs the first time
@@ -26,33 +27,22 @@ public class MoveShelfToPoint extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	//negative numbers -> lowered
-    	//TODO Please make sure
-    	if (Robot.shelf.encoderValue() < targetPoint - Constants.SHELF_BUFFER) {
-    		//we are lower, go up
-    		Robot.shelf.raise();
-    	}
-    	else if (Robot.shelf.encoderValue() > targetPoint + Constants.SHELF_BUFFER) {
-    		Robot.shelf.lower();
-    	}
-    	else {
-    		Robot.shelf.stop();
-    	}
+    	Robot.lift.startRollers(reverse);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (Robot.shelf.encoderValue() >= targetPoint - Constants.SHELF_BUFFER &&
-        		Robot.shelf.encoderValue() <= targetPoint + Constants.SHELF_BUFFER);
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shelf.stop();
+    	Robot.lift.stopRollers();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }

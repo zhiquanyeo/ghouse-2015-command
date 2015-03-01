@@ -1,5 +1,7 @@
 package org.usfirst.frc.team354.robot.subsystems;
 
+import org.usfirst.frc.team354.robot.Constants;
+import org.usfirst.frc.team354.robot.Robot;
 import org.usfirst.frc.team354.robot.RobotMap;
 import org.usfirst.frc.team354.robot.commands.StopShelf;
 
@@ -10,6 +12,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -61,6 +64,9 @@ public class Shelf extends Subsystem {
     		encoder.reset();
     		encoderReset = true;
     	}
+    	
+    	SmartDashboard.putNumber(Constants.DASH_SHELF_ENCODER_VALUE, Robot.shelf.encoderValue());
+    	SmartDashboard.putBoolean(Constants.DASH_SHELF_ENCODER_OK, Robot.shelf.encoderHasBeenReset());
     }
     
     public void lower() {
@@ -70,18 +76,30 @@ public class Shelf extends Subsystem {
     	else {
     		shelfMotor.set(0);
     	}
+    	
+    	SmartDashboard.putNumber(Constants.DASH_SHELF_ENCODER_VALUE, Robot.shelf.encoderValue());
+    	SmartDashboard.putBoolean(Constants.DASH_SHELF_ENCODER_OK, Robot.shelf.encoderHasBeenReset());
     }
     
     public void stop() {
     	shelfMotor.set(0);
     }
     
+    public void startRollers(boolean reverse) {
+    	if (reverse) {
+    		rollerMotor.set(-ROLLER_SPEED);
+    	}
+    	else {
+    		rollerMotor.set(ROLLER_SPEED);
+    	}
+    }
+    
     public void startRollers() {
-    	
+    	startRollers(false);
     }
     
     public void stopRollers() {
-    	
+    	rollerMotor.set(0);
     }
     
     public int encoderValue() {
@@ -90,6 +108,13 @@ public class Shelf extends Subsystem {
     
     public boolean encoderHasBeenReset() {
     	return encoderReset;
+    }
+    
+    public void initialize() {
+    	if (isFullyRaised()) {
+    		encoder.reset();
+    		encoderReset = true;
+    	}
     }
 }
 

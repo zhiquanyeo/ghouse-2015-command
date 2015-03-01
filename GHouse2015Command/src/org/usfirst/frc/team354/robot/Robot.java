@@ -38,6 +38,10 @@ public class Robot extends IterativeRobot {
         //autonomousCommand = new ExampleCommand();
 		
 		//We should send the lift down and close the hatch and reset all encoders
+		
+		//Initialize all subsystems
+		lift.initialize();
+		shelf.initialize();
     }
 	
 	public void disabledPeriodic() {

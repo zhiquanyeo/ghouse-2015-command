@@ -1,31 +1,24 @@
 package org.usfirst.frc.team354.robot.commands;
 
+import org.usfirst.frc.team354.robot.Constants;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
  * This mode raises the lift to a safe point and then lowers the shelf
  * to an appropriate point
+ * 
+ * This is a sequential action of raising (if necessary) the lift to an appropriate height
+ * and then lowering the shelf to it's optimum position.
+ * 
+ * The lift only needs to be HIGHER than the safe point, so we pass false to ignoreLow 
+ * (which makes sure that we move the lift out of the way), and true to ignoreHigh, which 
+ * lets the lift stay if it's already past the safe point
  */
 public class ActivateReceiveMode extends CommandGroup {
     
     public  ActivateReceiveMode() {
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
-    	addSequential(new SafelyMoveLiftToPoint(6000));
-    	addSequential(new SafelyMoveShelfToPoint(-272));
+    	addSequential(new SafelyMoveLiftToPoint(Constants.LIFT_SAFE_HEIGHT, false, true));
+    	addSequential(new SafelyMoveShelfToPoint(Constants.SHELF_OPTIMUM_ANGLE));
     }
 }

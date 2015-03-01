@@ -1,5 +1,6 @@
 package org.usfirst.frc.team354.robot.commands;
 
+import org.usfirst.frc.team354.robot.Constants;
 import org.usfirst.frc.team354.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -9,13 +10,15 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class MoveLiftToPoint extends Command {
 	private int targetPoint;
+	private boolean ignoreLow = false;
+	private boolean ignoreHigh = false;
 	
-	private static final int BUFFER = 2;
-	
-    public MoveLiftToPoint(int target) {
+    public MoveLiftToPoint(int target, boolean ignoreLow, boolean ignoreHigh) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	targetPoint = target;
+    	this.targetPoint = target;
+    	this.ignoreLow = ignoreLow;
+    	this.ignoreHigh = ignoreHigh;
     	
     	requires(Robot.lift);
     }
@@ -27,11 +30,11 @@ public class MoveLiftToPoint extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//on the lift, positive numbers are UP
-    	if (Robot.lift.encoderValue() < targetPoint - BUFFER) {
+    	if (!ignoreLow && Robot.lift.encoderValue() < targetPoint - Constants.LIFT_BUFFER) {
     		//we are lower, we need to go up
     		Robot.lift.raise();
     	}
-    	else if (Robot.lift.encoderValue() > targetPoint + BUFFER) {
+    	else if (!ignoreHigh && Robot.lift.encoderValue() > targetPoint + Constants.LIFT_BUFFER) {
     		Robot.lift.lower();
     	}
     	else {
@@ -42,8 +45,8 @@ public class MoveLiftToPoint extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//We are done if we are within our buffer range
-        return (Robot.lift.encoderValue() >= targetPoint - BUFFER &&
-        		Robot.lift.encoderValue() <= targetPoint + BUFFER);
+        return (Robot.lift.encoderValue() >= targetPoint - Constants.LIFT_BUFFER &&
+        		Robot.lift.encoderValue() <= targetPoint + Constants.LIFT_BUFFER);
     }
 
     // Called once after isFinished returns true

@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  *
  */
 public class SafelyMoveLiftToPoint extends CommandGroup {
-    public  SafelyMoveLiftToPoint(int target) {
+    public  SafelyMoveLiftToPoint(int target, boolean ignoreLow, boolean ignoreHigh) {
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -27,6 +27,6 @@ public class SafelyMoveLiftToPoint extends CommandGroup {
     	//We need to calibrate the lift encoders (if we haven't yet)
     	//and then move the lift to point
     	addSequential(new CalibrateLiftIfNecessary());
-    	addSequential(new MoveLiftToPoint(target));
+    	addSequential(new MoveLiftToPoint(target, ignoreLow, ignoreHigh));
     }
 }

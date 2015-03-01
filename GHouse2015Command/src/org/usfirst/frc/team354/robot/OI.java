@@ -5,6 +5,8 @@ import org.usfirst.frc.team354.robot.commands.LowerLift;
 import org.usfirst.frc.team354.robot.commands.LowerShelf;
 import org.usfirst.frc.team354.robot.commands.RaiseLift;
 import org.usfirst.frc.team354.robot.commands.RaiseShelf;
+import org.usfirst.frc.team354.robot.commands.StartLiftRollers;
+import org.usfirst.frc.team354.robot.commands.StartShelfRollers;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -56,15 +58,25 @@ public class OI {
 		getButton(RobotMap.driverJoystick, RobotMap.liftDownButton)
 			.whileHeld(new LowerLift());
 		
+		getButton(RobotMap.driverJoystick, 8)
+			.whileHeld(new StartLiftRollers());
+		getButton(RobotMap.driverJoystick, 6)
+			.whileHeld(new StartLiftRollers(true));
+		
 		//Shelf System Commands
 		getButton(RobotMap.driverJoystick, RobotMap.shelfRaiseButton)
 			.whileHeld(new RaiseShelf());
 		getButton(RobotMap.driverJoystick, RobotMap.shelfLowerButton)
 			.whileHeld(new LowerShelf());
 		
+		getButton(RobotMap.driverJoystick, 7)
+			.whileHeld(new StartShelfRollers());
+		getButton(RobotMap.driverJoystick, 5)
+			.whileHeld(new StartShelfRollers(true));
+		
 		//Specials
 		getButton(RobotMap.driverJoystick, RobotMap.autoGateModeButton)
-			.whileHeld(new ActivateReceiveMode());
+			.whenPressed(new ActivateReceiveMode());
 	}
 	
 	//Joystick value interfaces

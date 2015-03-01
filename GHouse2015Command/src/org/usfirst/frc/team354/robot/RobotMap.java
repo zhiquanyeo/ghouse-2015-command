@@ -32,21 +32,24 @@ public class RobotMap {
 	public static final int frontRightMotor = 1;
 	public static final int backLeftMotor = 2;
 	public static final int backRightMotor = 3;
-	public static final int hDriveMotor = 2; //TODO We might get rid of this
 	
 	// LIFT SYSTEM
-	public static final int liftMotor = 3;
-	public static final int liftRoller = 5; //TODO To be decided
+	public static final int liftMotor = 4;
+	public static final int liftRoller = 7;
 	public static final int liftEncoderA = 7;
 	public static final int liftEncoderB = 8;
 	public static final int liftTopSwitch = 0;
 	public static final int liftBottomSwitch = 1;
 	
 	// SHELF SYSTEM
-	public static final int shelfMotor = 4;
-	public static final int shelfRoller = 6; //TODO to be decided
+	public static final int shelfMotor = 5;
+	public static final int shelfRoller = 6;
 	public static final int shelfEncoderA = 5;
 	public static final int shelfEncoderB = 6;
 	public static final int shelfLoweredSwitch = 2; //was OPEN
 	public static final int shelfRaisedSwitch = 3; //was CLOSED
+	
+	//SERVOS
+	public static final int shelfServoLeft = 8;
+	public static final int shelfServoRight = 9;
 }
