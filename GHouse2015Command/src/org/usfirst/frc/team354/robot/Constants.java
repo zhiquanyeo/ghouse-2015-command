@@ -12,8 +12,15 @@ public class Constants {
 	
 	public static final double MAX_TURN_SPEED = 0.7;
 	
+	public static final double SHELF_ROLLER_SPEED = 0.6;
+	public static final double SHELF_MOTOR_SPEED = 0.7;
+	
+	public static final double LIFT_ROLLER_SPEED = 0.6;
+	public static final double LIFT_MOTOR_SPEED = 1.0;
+	
 	public static final String DASH_LIFT_ENCODER_OK = "Lift Encoder OK";
 	public static final String DASH_LIFT_ENCODER_VALUE = "Lift Encoder Position";
 	public static final String DASH_SHELF_ENCODER_OK = "Shelf Encoder OK";
 	public static final String DASH_SHELF_ENCODER_VALUE = "Shelf Encoder Position";
+	public static final String DASH_CURRENT_COMMAND = "Currently Running Commands";
 }

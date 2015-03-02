@@ -19,7 +19,7 @@ public class StartShelfRollers extends Command {
     
     public StartShelfRollers(boolean reverse) {
     	this.reverse = reverse;
-    	requires(Robot.shelf);
+    	requires(Robot.shelfRollers);
     }
 
     // Called just before this Command runs the first time
@@ -28,7 +28,7 @@ public class StartShelfRollers extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shelf.startRollers(reverse);
+    	Robot.shelfRollers.startRollers(reverse);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -38,7 +38,7 @@ public class StartShelfRollers extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.shelf.stopRollers();
+    	Robot.shelfRollers.stopRollers();
     }
 
     // Called when another command which requires one or more of the same

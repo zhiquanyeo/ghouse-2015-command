@@ -5,10 +5,13 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import org.usfirst.frc.team354.robot.subsystems.Chassis;
 import org.usfirst.frc.team354.robot.subsystems.Lift;
+import org.usfirst.frc.team354.robot.subsystems.LiftRollers;
 import org.usfirst.frc.team354.robot.subsystems.Shelf;
+import org.usfirst.frc.team354.robot.subsystems.ShelfRollers;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,8 +24,12 @@ public class Robot extends IterativeRobot {
 
 	//Subsystems
 	public static final Chassis chassis = new Chassis();
+	
 	public static final Lift lift = new Lift();
+	public static final LiftRollers liftRollers = new LiftRollers();
+	
 	public static final Shelf shelf = new Shelf();
+	public static final ShelfRollers shelfRollers = new ShelfRollers();
 	
 	public static OI oi;
 
@@ -58,6 +65,7 @@ public class Robot extends IterativeRobot {
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
+        dumpDashboardData();
     }
 
     public void teleopInit() {
@@ -81,6 +89,7 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
+        dumpDashboardData();
     }
     
     /**
@@ -88,5 +97,28 @@ public class Robot extends IterativeRobot {
      */
     public void testPeriodic() {
         LiveWindow.run();
+    }
+    
+    /**
+     * Send the current state of the robot to the dashboard
+     */
+    private void dumpDashboardData() {
+    	//Lift Status
+    	SmartDashboard.putBoolean(Constants.DASH_LIFT_ENCODER_OK, lift.encoderHasBeenReset());
+    	SmartDashboard.putNumber(Constants.DASH_LIFT_ENCODER_VALUE, lift.encoderValue());
+    	
+    	//Shelf Status
+    	SmartDashboard.putBoolean(Constants.DASH_SHELF_ENCODER_OK, shelf.encoderHasBeenReset());
+    	SmartDashboard.putNumber(Constants.DASH_SHELF_ENCODER_VALUE, shelf.encoderValue());
+    	
+    	//Sub System Status
+    	SmartDashboard.putData(lift);
+    	SmartDashboard.putData(shelf);
+    	SmartDashboard.putData(chassis);
+    	SmartDashboard.putData(liftRollers);
+    	SmartDashboard.putData(shelfRollers);
+    	
+    	//Commands
+    	SmartDashboard.putData(Constants.DASH_CURRENT_COMMAND, Scheduler.getInstance());
     }
 }

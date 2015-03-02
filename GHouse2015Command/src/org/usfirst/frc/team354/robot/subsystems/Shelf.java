@@ -23,19 +23,14 @@ public class Shelf extends Subsystem {
     // here. Call these from Commands.
 	
 	private SpeedController shelfMotor;
-	private SpeedController rollerMotor;
 	private Encoder encoder;
 	private DigitalInput raisedSwitch;
 	private DigitalInput loweredSwitch;
-	
-	private static final double MOTOR_SPEED = 0.7;
-	private static final double ROLLER_SPEED = 0.6;
 	
 	private boolean encoderReset = false;
 	
 	public Shelf() {
 		shelfMotor = new Victor(RobotMap.shelfMotor);
-		rollerMotor = new Talon(RobotMap.shelfRoller);
 		encoder = new Encoder(RobotMap.shelfEncoderA, RobotMap.shelfEncoderB, false, EncodingType.k4X);
 		raisedSwitch = new DigitalInput(RobotMap.shelfRaisedSwitch);
 		loweredSwitch = new DigitalInput(RobotMap.shelfLoweredSwitch);
@@ -57,7 +52,7 @@ public class Shelf extends Subsystem {
     
     public void raise() {
     	if (!isFullyRaised()) {
-    		shelfMotor.set(MOTOR_SPEED);
+    		shelfMotor.set(Constants.SHELF_MOTOR_SPEED);
     	}
     	else {
     		shelfMotor.set(0);
@@ -71,7 +66,7 @@ public class Shelf extends Subsystem {
     
     public void lower() {
     	if (!isFullyLowered()) {
-    		shelfMotor.set(-MOTOR_SPEED);
+    		shelfMotor.set(-Constants.SHELF_MOTOR_SPEED);
     	}
     	else {
     		shelfMotor.set(0);
@@ -83,23 +78,6 @@ public class Shelf extends Subsystem {
     
     public void stop() {
     	shelfMotor.set(0);
-    }
-    
-    public void startRollers(boolean reverse) {
-    	if (reverse) {
-    		rollerMotor.set(-ROLLER_SPEED);
-    	}
-    	else {
-    		rollerMotor.set(ROLLER_SPEED);
-    	}
-    }
-    
-    public void startRollers() {
-    	startRollers(false);
-    }
-    
-    public void stopRollers() {
-    	rollerMotor.set(0);
     }
     
     public int encoderValue() {
