@@ -11,6 +11,7 @@ import org.usfirst.frc.team354.robot.subsystems.Chassis;
 import org.usfirst.frc.team354.robot.subsystems.Lift;
 import org.usfirst.frc.team354.robot.subsystems.LiftRollers;
 import org.usfirst.frc.team354.robot.subsystems.Shelf;
+import org.usfirst.frc.team354.robot.subsystems.ShelfLockServos;
 import org.usfirst.frc.team354.robot.subsystems.ShelfRollers;
 
 /**
@@ -30,6 +31,8 @@ public class Robot extends IterativeRobot {
 	
 	public static final Shelf shelf = new Shelf();
 	public static final ShelfRollers shelfRollers = new ShelfRollers();
+	
+	public static final ShelfLockServos shelfServos = new ShelfLockServos();
 	
 	public static OI oi;
 
