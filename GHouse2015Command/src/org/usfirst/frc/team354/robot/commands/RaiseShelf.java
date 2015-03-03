@@ -1,5 +1,6 @@
 package org.usfirst.frc.team354.robot.commands;
 
+import org.usfirst.frc.team354.robot.Constants;
 import org.usfirst.frc.team354.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,7 +23,8 @@ public class RaiseShelf extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shelf.raise();
+    	if (Robot.lift.encoderHasBeenReset() && Robot.lift.encoderValue() > Constants.LIFT_MID_MARK)
+    		Robot.shelf.raise();
     }
 
     // Make this return true when this Command no longer needs to run execute()
