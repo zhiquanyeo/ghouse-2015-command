@@ -2,6 +2,11 @@ package org.usfirst.frc.team354.robot;
 
 public class Constants {
 	public static final int LIFT_SAFE_HEIGHT = 6000;
+	
+	public static final int LIFT_HIGH_MARK = 7690;
+	public static final int LIFT_MID_MARK = 6055;
+	public static final int LIFT_LOW_MARK = 1325;
+	
 	public static final int SHELF_OPTIMUM_ANGLE = -272;
 	
 	public static final int LIFT_BUFFER = 2;

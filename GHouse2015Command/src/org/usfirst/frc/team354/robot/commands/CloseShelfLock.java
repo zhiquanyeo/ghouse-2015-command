@@ -21,7 +21,8 @@ public class CloseShelfLock extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.shelfServos.close();
+    	if (!Robot.shelf.isFullyLowered())
+    		Robot.shelfServos.close();
     }
 
     // Make this return true when this Command no longer needs to run execute()

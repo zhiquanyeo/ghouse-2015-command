@@ -9,13 +9,29 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class OperatorMecDrive extends Command {
-
-    public OperatorMecDrive() {
+	
+	private double maxSpeed = 0.5;
+	
+	public OperatorMecDrive() {
+		this(0.5);
+	}
+	
+    public OperatorMecDrive(double maxSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	if (maxSpeed > 1.0)
+    		maxSpeed = 1.0;
+    	if (maxSpeed < 0.0)
+    		maxSpeed = 0.0;
+    	
+    	this.maxSpeed = maxSpeed;
+    	
     	requires(Robot.chassis);
     }
 
+    public String getName() {
+    	return "OperatorMecDrive - " + maxSpeed;
+    }
     // Called just before this Command runs the first time
     protected void initialize() {
     }
@@ -27,7 +43,11 @@ public class OperatorMecDrive extends Command {
     	double turnVal = expo(Robot.oi.getDriverStickZ(), Constants.DRIVE_EXPO_VALUE);
     	
     	//Clamp turn speed
-    	turnVal *= Constants.MAX_TURN_SPEED;
+    	turnVal *= maxSpeed;
+    	
+    	//crab speed at full power
+    	//crabVal *= maxSpeed;
+    	driveVal *= maxSpeed;
     	
     	//TODO We can switch to mecanum by using this
     	Robot.chassis.meccanumDrive(driveVal, crabVal, turnVal);

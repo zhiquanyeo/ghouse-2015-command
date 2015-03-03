@@ -1,8 +1,11 @@
 package org.usfirst.frc.team354.robot;
 
 import org.usfirst.frc.team354.robot.commands.ActivateReceiveMode;
+import org.usfirst.frc.team354.robot.commands.CloseShelfLock;
 import org.usfirst.frc.team354.robot.commands.LowerLift;
 import org.usfirst.frc.team354.robot.commands.LowerShelf;
+import org.usfirst.frc.team354.robot.commands.OpenShelfLock;
+import org.usfirst.frc.team354.robot.commands.OperatorMecDrive;
 import org.usfirst.frc.team354.robot.commands.RaiseLift;
 import org.usfirst.frc.team354.robot.commands.RaiseShelf;
 import org.usfirst.frc.team354.robot.commands.StartLiftRollers;
@@ -53,30 +56,41 @@ public class OI {
 		codriverStick = new Joystick(RobotMap.codriverJoystick);
 		
 		//Lift System commands
-		getButton(RobotMap.driverJoystick, RobotMap.liftUpButton)
+		getButton(RobotMap.codriverJoystick, RobotMap.liftUpButton)
 			.whileHeld(new RaiseLift());
-		getButton(RobotMap.driverJoystick, RobotMap.liftDownButton)
+		getButton(RobotMap.codriverJoystick, RobotMap.liftDownButton)
 			.whileHeld(new LowerLift());
 		
-		getButton(RobotMap.driverJoystick, 8)
+		getButton(RobotMap.codriverJoystick, RobotMap.liftRollerButton)
 			.whileHeld(new StartLiftRollers());
-		getButton(RobotMap.driverJoystick, 6)
+		getButton(RobotMap.codriverJoystick, RobotMap.liftRollerReverseButton)
 			.whileHeld(new StartLiftRollers(true));
 		
 		//Shelf System Commands
-		getButton(RobotMap.driverJoystick, RobotMap.shelfRaiseButton)
+		getButton(RobotMap.codriverJoystick, RobotMap.shelfRaiseButton)
 			.whileHeld(new RaiseShelf());
-		getButton(RobotMap.driverJoystick, RobotMap.shelfLowerButton)
+		getButton(RobotMap.codriverJoystick, RobotMap.shelfLowerButton)
 			.whileHeld(new LowerShelf());
 		
-		getButton(RobotMap.driverJoystick, 7)
+		getButton(RobotMap.codriverJoystick, RobotMap.shelfRollerButton)
 			.whileHeld(new StartShelfRollers());
-		getButton(RobotMap.driverJoystick, 5)
+		getButton(RobotMap.codriverJoystick, RobotMap.shelfRollerReverseButton)
 			.whileHeld(new StartShelfRollers(true));
+	
+		
+//		getButton(RobotMap.driverJoystick, RobotMap.shelfServoControlButton)
+//			.whileHeld(new CloseShelfLock());
+		
+		//Hold the righ trigger for full speed driving
+		getButton(RobotMap.driverJoystick, RobotMap.maxSpeedButton)
+			.whileHeld(new OperatorMecDrive(1.0));
+		
+		getButton(RobotMap.driverJoystick, RobotMap.autoReceiveModeButton)
+			.whenPressed(new ActivateReceiveMode());
 		
 		//Specials
-		getButton(RobotMap.driverJoystick, RobotMap.autoGateModeButton)
-			.whenPressed(new ActivateReceiveMode());
+//		getButton(RobotMap.driverJoystick, RobotMap.autoGateModeButton)
+//			.whenPressed(new ActivateReceiveMode());
 	}
 	
 	//Joystick value interfaces

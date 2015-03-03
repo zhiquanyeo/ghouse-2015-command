@@ -21,11 +21,20 @@ public class RobotMap {
 	public static final int codriverJoystick = 1;
 	
 	// JOYSTICK BUTTONS
+	//co-driver
 	public static final int liftUpButton = 4;
 	public static final int liftDownButton = 2;
 	public static final int shelfRaiseButton = 3;
 	public static final int shelfLowerButton = 1;
-	public static final int autoGateModeButton = 8;
+	public static final int liftRollerButton = 8;
+	public static final int liftRollerReverseButton = 6;
+	public static final int shelfRollerButton = 7;
+	public static final int shelfRollerReverseButton = 5;
+	
+	//Driver
+	public static final int shelfServoControlButton = 2;
+	public static final int maxSpeedButton = 8;
+	public static final int autoReceiveModeButton = 3;
 	
 	// DRIVETRAIN MOTORS
 	public static final int frontLeftMotor = 0;
@@ -48,6 +57,7 @@ public class RobotMap {
 	public static final int shelfEncoderB = 6;
 	public static final int shelfLoweredSwitch = 2; //was OPEN
 	public static final int shelfRaisedSwitch = 3; //was CLOSED
+	public static final int shelfContactSwitch = 4;
 	
 	//SERVOS
 	public static final int shelfServoLeft = 8;

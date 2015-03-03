@@ -26,6 +26,7 @@ public class Shelf extends Subsystem {
 	private Encoder encoder;
 	private DigitalInput raisedSwitch;
 	private DigitalInput loweredSwitch;
+	private DigitalInput backContactSwitch;
 	
 	private boolean encoderReset = false;
 	
@@ -34,12 +35,14 @@ public class Shelf extends Subsystem {
 		encoder = new Encoder(RobotMap.shelfEncoderA, RobotMap.shelfEncoderB, false, EncodingType.k4X);
 		raisedSwitch = new DigitalInput(RobotMap.shelfRaisedSwitch);
 		loweredSwitch = new DigitalInput(RobotMap.shelfLoweredSwitch);
+		
+		backContactSwitch = new DigitalInput(RobotMap.shelfContactSwitch);
 	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new StopShelf());
+    	//setDefaultCommand(new StopShelf());
     }
     
     public boolean isFullyRaised() {
@@ -48,6 +51,10 @@ public class Shelf extends Subsystem {
     
     public boolean isFullyLowered() {
     	return (!loweredSwitch.get());
+    }
+    
+    public boolean hasLoad() {
+    	return (!backContactSwitch.get());
     }
     
     public void raise() {
@@ -59,9 +66,6 @@ public class Shelf extends Subsystem {
     		encoder.reset();
     		encoderReset = true;
     	}
-    	
-    	SmartDashboard.putNumber(Constants.DASH_SHELF_ENCODER_VALUE, Robot.shelf.encoderValue());
-    	SmartDashboard.putBoolean(Constants.DASH_SHELF_ENCODER_OK, Robot.shelf.encoderHasBeenReset());
     }
     
     public void lower() {
@@ -71,9 +75,6 @@ public class Shelf extends Subsystem {
     	else {
     		shelfMotor.set(0);
     	}
-    	
-    	SmartDashboard.putNumber(Constants.DASH_SHELF_ENCODER_VALUE, Robot.shelf.encoderValue());
-    	SmartDashboard.putBoolean(Constants.DASH_SHELF_ENCODER_OK, Robot.shelf.encoderHasBeenReset());
     }
     
     public void stop() {

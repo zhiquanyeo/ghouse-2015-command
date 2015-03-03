@@ -18,7 +18,13 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class ActivateReceiveMode extends CommandGroup {
     
     public  ActivateReceiveMode() {
-    	addSequential(new SafelyMoveLiftToPoint(Constants.LIFT_SAFE_HEIGHT, false, true));
+    	addSequential(new SafelyMoveLiftToPoint(Constants.LIFT_HIGH_MARK, false, true));
+    	addSequential(new FullyLowerShelf());
     	addSequential(new SafelyMoveShelfToPoint(Constants.SHELF_OPTIMUM_ANGLE));
+    	addSequential(new ShelfReceiveMode()); //Turn on the rollers and wait for load
+    	addSequential(new FullyLowerShelf());
+    	addSequential(new FullyLowerLift());
+    	//addSequential(new SafelyMoveLiftToPoint(Constants.LIFT_HIGH_MARK, false, true));
+    	//Standby to receive
     }
 }

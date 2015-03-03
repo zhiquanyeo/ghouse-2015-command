@@ -1,6 +1,8 @@
 package org.usfirst.frc.team354.robot.subsystems;
 
 import org.usfirst.frc.team354.robot.RobotMap;
+import org.usfirst.frc.team354.robot.commands.CloseShelfLock;
+import org.usfirst.frc.team354.robot.commands.OpenShelfLock;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -23,6 +25,7 @@ public class ShelfLockServos extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new CloseShelfLock());
     }
     
     public void open() {

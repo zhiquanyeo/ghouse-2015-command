@@ -12,6 +12,7 @@ public class MoveLiftToPoint extends Command {
 	private int targetPoint;
 	private boolean ignoreLow = false;
 	private boolean ignoreHigh = false;
+	private boolean forceStop = false;
 	
     public MoveLiftToPoint(int target, boolean ignoreLow, boolean ignoreHigh) {
         // Use requires() here to declare subsystem dependencies
@@ -39,14 +40,22 @@ public class MoveLiftToPoint extends Command {
     	}
     	else {
     		Robot.lift.stop();
+    		forceStop = true; //force a stop
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	//We are done if we are within our buffer range
-        return (Robot.lift.encoderValue() >= targetPoint - Constants.LIFT_BUFFER &&
-        		Robot.lift.encoderValue() <= targetPoint + Constants.LIFT_BUFFER);
+    	return (!(Robot.lift.encoderValue() < targetPoint - Constants.LIFT_BUFFER || 
+    			Robot.lift.encoderValue() > targetPoint + Constants.LIFT_BUFFER)) 
+    			|| forceStop;
+//    	boolean result = (Robot.lift.encoderValue() > targetPoint - Constants.LIFT_BUFFER &&
+//        				  Robot.lift.encoderValue() < targetPoint + Constants.LIFT_BUFFER);
+//    	if (result) {
+//    		System.out.println("Lift is at point");
+//    	}
+//    	return result;
     }
 
     // Called once after isFinished returns true

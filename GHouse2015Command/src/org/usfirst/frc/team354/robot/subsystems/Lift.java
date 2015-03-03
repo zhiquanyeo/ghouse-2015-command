@@ -39,7 +39,7 @@ public class Lift extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new StopLift());
+    	//setDefaultCommand(new StopLift());
     }
     
     public void raise() {
@@ -49,9 +49,6 @@ public class Lift extends Subsystem {
     	else {
     		liftMotor.set(0);
     	}
-    	
-    	SmartDashboard.putNumber(Constants.DASH_LIFT_ENCODER_VALUE, Robot.lift.encoderValue());
-    	SmartDashboard.putBoolean(Constants.DASH_LIFT_ENCODER_OK, Robot.lift.encoderHasBeenReset());
     }
     
     public void lower() {
@@ -63,9 +60,6 @@ public class Lift extends Subsystem {
     		encoder.reset();
     		encoderReset = true;
     	}
-    	
-    	SmartDashboard.putNumber(Constants.DASH_LIFT_ENCODER_VALUE, Robot.lift.encoderValue());
-    	SmartDashboard.putBoolean(Constants.DASH_LIFT_ENCODER_OK, Robot.lift.encoderHasBeenReset());
     }
     
     public void stop() {

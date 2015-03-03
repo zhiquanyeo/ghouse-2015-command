@@ -38,7 +38,7 @@ public class Chassis extends Subsystem {
 	
     public void initDefaultCommand() {
     	//The default command is to do meccanum drive. and it will be awesome
-    	setDefaultCommand(new OperatorMecDrive());
+    	setDefaultCommand(new OperatorMecDrive(0.25));
     }
     
     public void meccanumDrive(double x, double y, double rotation) {
