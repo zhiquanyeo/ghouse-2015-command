@@ -26,6 +26,7 @@ public class MoveLiftToPoint extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	forceStop = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -34,9 +35,11 @@ public class MoveLiftToPoint extends Command {
     	if (!ignoreLow && Robot.lift.encoderValue() < targetPoint - Constants.LIFT_BUFFER) {
     		//we are lower, we need to go up
     		Robot.lift.raise();
+    		forceStop = false;
     	}
     	else if (!ignoreHigh && Robot.lift.encoderValue() > targetPoint + Constants.LIFT_BUFFER) {
     		Robot.lift.lower();
+    		forceStop = false;
     	}
     	else {
     		Robot.lift.stop();

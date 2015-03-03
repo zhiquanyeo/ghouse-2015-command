@@ -23,12 +23,15 @@ public class ShelfReceiveMode extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//Turn on the shelf rollers
-    	Robot.shelfRollers.startRollers();
+    	if (!Robot.shelf.hasLoad()) 
+    		Robot.shelfRollers.startRollers();
+    	else
+    		Robot.shelfRollers.stopRollers();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.shelf.hasLoad();
+        return Robot.shelf.hasLoad() && Robot.shelf.isFullyLowered();
     }
 
     // Called once after isFinished returns true
