@@ -85,8 +85,8 @@ public class OI {
 		getButton(RobotMap.driverJoystick, RobotMap.maxSpeedButton)
 			.whileHeld(new OperatorMecDrive(1.0));
 		
-		getButton(RobotMap.driverJoystick, RobotMap.autoReceiveModeButton)
-			.whenPressed(new ActivateReceiveMode());
+		//getButton(RobotMap.driverJoystick, RobotMap.autoReceiveModeButton)
+		//	.whenPressed(new ActivateReceiveMode());
 		
 		//Specials
 //		getButton(RobotMap.driverJoystick, RobotMap.autoGateModeButton)
