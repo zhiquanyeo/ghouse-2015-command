@@ -1,5 +1,6 @@
 package org.usfirst.frc.team354.robot.commands;
 
+import org.usfirst.frc.team354.robot.Constants;
 import org.usfirst.frc.team354.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
@@ -17,19 +18,17 @@ public class FullyLowerShelf extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	System.out.println("FullyLowerShelf");
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	System.out.println("Lowering Shelf");
-    	Robot.shelf.lower();
+    	if (Robot.lift.encoderHasBeenReset() && Robot.lift.encoderValue() > Constants.LIFT_MID_MARK)
+    		Robot.shelf.lower();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	System.out.println("Shelf is DOWN");
-        return Robot.shelf.isFullyLowered();
+    	return Robot.shelf.isFullyLowered();
     }
 
     // Called once after isFinished returns true

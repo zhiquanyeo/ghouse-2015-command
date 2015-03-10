@@ -2,6 +2,7 @@
 package org.usfirst.frc.team354.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -52,6 +53,40 @@ public class Robot extends IterativeRobot {
 		//Initialize all subsystems
 		lift.initialize();
 		shelf.initialize();
+		
+		//Initialization routines
+		System.out.println("==== W A R N I N G ====");
+		System.out.println("Robot initialization in progress");
+		System.out.println("Beginning in 3...");
+		Timer.delay(1);
+		System.out.println("2...");
+		Timer.delay(1);
+		System.out.println("1...");
+		Timer.delay(1);
+		System.out.println("Initialization beginning...");
+		if (!shelf.isFullyRaised()) {
+			System.out.println("Shelf has not been reset.");
+			System.out.println("Raising lift to safe height...");
+			while(!lift.isAtTop()) {
+				lift.raise();
+			}
+			lift.stop();
+			
+			System.out.println("Stowing shelf...");
+			while (!shelf.isFullyRaised()) {
+				shelf.raise();
+			}
+			shelf.stop();
+			
+		}
+		System.out.println("Lowering lift...");
+		while (!lift.isAtBottom()) {
+			lift.lower();
+		}
+		lift.stop();
+		System.out.println("Robot successfully reset");
+		System.out.println("==== R E A D Y ====");
+		
     }
 	
 	public void disabledPeriodic() {
