@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
+import org.usfirst.frc.team354.robot.commands.BasicAutonomous;
 import org.usfirst.frc.team354.robot.subsystems.Chassis;
 import org.usfirst.frc.team354.robot.subsystems.Lift;
 import org.usfirst.frc.team354.robot.subsystems.LiftRollers;
@@ -47,6 +48,7 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
         // instantiate the command used for the autonomous period
         //autonomousCommand = new ExampleCommand();
+		autonomousCommand = new BasicAutonomous();
 		
 		//We should send the lift down and close the hatch and reset all encoders
 		
@@ -158,5 +160,9 @@ public class Robot extends IterativeRobot {
     	
     	//Commands
     	SmartDashboard.putData(Constants.DASH_CURRENT_COMMAND, Scheduler.getInstance());
+    	
+    	//Load Status
+    	SmartDashboard.putBoolean(Constants.DASH_HAS_LOAD, shelf.hasLoad());
+    	SmartDashboard.putBoolean(Constants.DASH_SAFE_TO_MOVE_SHELF, lift.isAtSafeHeight());
     }
 }
